@@ -1,0 +1,84 @@
+data sample;
+Array my_arr{5} (10,20,30,40,50);
+do i=1 to 5;
+	j=50-my_arr{i};
+	output;
+end;
+keep i j ;
+run;	
+
+
+
+libname sau3  "/folders/myfolders/Onlinemodule/prg3";
+
+data contribution;
+set sau3.employeedonations;
+array qtr{*} qtr:;
+array diff{4};
+array target{4} {10,20,20,15};
+
+do i=1 to dim(qtr);
+diff{i}=sum(qtr{i},-target{i});
+*diff{i}=qtr{i}-target{i};
+	end;
+Total_diff=sum(of Diff:);
+keep EmployeeID Diff: Total_diff;
+run;
+
+
+
+*Macro variables;
+*Macro programs;
+*in memory both r same ,when accesing they are different when u acess them ;
+
+%let dept="Sales";
+%let sal=35000;
+
+%put &dept ;			*%put is used to acess a macro variables;
+%put &sal;
+
+%put _automatic_;
+
+%put &sysdate9;
+%put &sysscpl;
+
+%let a=5;
+%let b=7.2;
+%let c=%sysevalf(&a+&b);
+
+%put &c;
+
+
+*Macro programs;
+
+libname sau2 "/folders/myfolders/Onlinemodule/prg2";
+
+%let dept="Administration";
+%let sal=35000;
+
+%macro dept_report(dept="Sales",sal=35000); *<------------arguments for different macro variables for variability;
+title "Glory to the Soviet Union &sysdate9  &systime"; 
+proc print data=sau2.employees;
+where department=&dept and city="Sydney";
+run;
+proc print data=sau2.employees;
+where department=&dept;
+run;
+proc print data=sau2.employees;
+where department=&dept and salary>&sal;
+run;
+proc print data=sau2.employees;
+where salary<=&sal;
+run;
+%mend;
+
+%dept_report;
+%dept_report("Sales",40000);
+%dept_report("Administration",30000);
+%dept_report(40000,"Sales");
+%dept_report(dept="Sales",sal=40000);
+
+
+%dept_report(dept="Administration",sal=40000);
+%dept_report(dept="Administration"); *since sal is not mentioned it will go with default values;
+2
