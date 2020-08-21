@@ -1,0 +1,456 @@
+1)What are the file extensions for SAS dataset and program files?
+-> 	Extension of SAS dataset :-   .sas7bdat
+	Extension of SAS programfle:-	.SAS file
+
+2)List the naming rules for SAS variables and dataset
+->
+NAMING conventions for SAS variables and datasets:
+Can contain letters,digits and 
+It cannot start with a digit
+No special character are allowled other than the underscore
+No white spaces are allowed
+
+
+
+3)What are the the different types of steps in SAS? Explain the difference between them. 
+->2 types of steps:
+Data-->create SAS datasets
+Proc-->generate reports from existing data
+
+Every step begins with either the data or proc keyboard
+A SAS program can contain a DATA step, a PROC step, or any combination of DATA steps and PROC steps. The number and kind of steps depend on the tasks you need to perform.
+
+A DATA step enables you to manage and manipulate your data. You typically use a DATA step to read data from an input source, process it, and create a SAS table. With DATA steps, you can
+
+put your data into a SAS table.
+compute the values for new variables.
+check for and correct errors in your data.
+produce new SAS data sets by subsetting, merging, and updating existing data sets.
+
+A PROC (procedure) step enables you to analyze and present your data. You can use a PROC step to generate reports and graphs. PROC steps include a library of prewritten routines (procedures) that perform tasks on SAS tables, such as listing, sorting, and summarizing data. With PROC steps, you can
+
+print a report.
+produce descriptive statistics.
+create a tabular report.
+produce plots and charts.
+
+
+
+4)List all the procedures that you are aware of in SAS. Explain in short
+->
+ANS.To perform data manipulation, statistical analysis and report / graph production we use procedure function.
+1.proc print : It is used Printing a Dataset to the Output Window.
+2.proc contents : The CONTENTS procedure generates summary information about the contents of a dataset, including:
+The variables' names, types, and attributes (including formats, informats, and labels)
+How many observations are in the dataset
+How many variables are in the dataset
+When the dataset was created
+3.proc sort : The SAS procedure used to carry out the sorting in SAS data set is named PROC SORT. 
+4.proc means : PROC MEANS is one of the most common SAS procedure used for analyzing data. 
+It is mainly used to calculate descriptive statistics such as mean, median, count, sum etc. 
+It can also be used to calculate several other metrics such as percentiles, quartiles, standard deviation, variance and sample t-test.
+5.proc freq:The FREQ procedure prints all values of a given categorical variable in the Output window, along with the counts and proportions. 
+The FREQ procedure can work with both string (character) or numeric categorical variables.
+6.proc format : creating a format ,writing a format for dates
+
+
+5) What is the difference between proc print and proc contents?
+->
+ANS:-PROC print outputs a listing of the values of some or all of the variables in a SAS data set. 
+PROC contents tells the structure of the data set rather than the data values.
+
+
+7)Explain the print procedure in detail
+->
+ANS:-A SAS dataset can be viewed using the the PRINT procedure, which produces a print-out of your dataset in the Output window. The PRINT procedure offers the flexibility to specify what variables and/or observations to print. The general format of PROC PRINT is:
+
+Syntax:-	PROC PRINT DATA=dataset;
+    	BY variable(s);
+    	ID variable;
+    	VAR variable(s);
+	RUN;
+
+Example:-
+	PROC PRINT DATA=sample (FIRSTOBS=20 OBS=30);
+	RUN;
+
+8)Explain the content procedure in detail.
+->
+ANS:-The CONTENTS procedure generates summary information about the contents of a dataset, including:
+
+The variables' names, types, and attributes (including formats, informats, and labels)
+How many observations are in the dataset
+How many variables are in the dataset
+When the dataset was created
+This procedure is especially useful if you have imported your data from a file and want to check that your variables have been read correctly, and have the appropriate variable type and format. (For example, you may wish to check that none of your character variables have been truncated, and that your date variables have not been misread.) The basic syntax of PROC CONTENTS is:
+
+PROC CONTENTS DATA=sample;
+RUN;
+
+9)Explain the freq procedure in detail.
+->
+ANS:-The freq proc calculates count/frequency and cumulative frequency of categories of a categorical variable. In other words, it returns the number and percentage of cases falling in multiple categories of a categorical variable. It's not just restricted to counts. It also produces bar charts and tests for association between two categorical variables.
+
+To check the distribution of a categorical variable (Character)
+
+Suppose you want to see the frequency distribution of variable 'y'.
+proc freq data = example1;
+tables y;
+run;
+
+10)Explain the sort procedure in detail.
+->Sometimes you want to change the structure of your dataset so that observations are ordered according to one or more variables, called sorting. Data is easily sorted by one or more variables with a procedure called PROC SORT. You can sort data by both numeric and character variables. The general format of the sort procedure is:
+
+PROC SORT <options>;
+  BY var;
+RUN;
+In the syntax above, PROC is the keyword that starts the proc step and SORT is the name of the procedure. 
+
+11)Explain the format procedure in detail.
+->PROC FORMAT is a procedure that creates a mapping of data values into data labels.
+Problem 1 (& 2): Display M and F as Male and Female.
+Code:
+
+Proc Format;
+Value $Genderfmt ‘M’=’Male’
+‘F’ =’Female’;
+Run;
+Proc Print Data = Sales ;
+Format Gender $Genderfmt. ;
+Run;
+
+11)Explain the mean procedure in detail.
+->PROC MEANS is one of the most common SAS procedure used for analyzing data. It is mainly used to calculate descriptive statistics such as mean, median, count, sum etc. It can also be used to calculate several other metrics such as percentiles, quartiles, standard deviation, variance and sample t-test.
+
+Proc Means Data = test;
+Var q1 - q5;
+Run;
+
+12)What is the use of explicit output statement?
+->
+ANS:-Placing an explicit OUTPUT statement in a DATA step overrides the automatic output, and SAS adds an observation to a data set only when an explicit OUTPUT statement is executed.
+
+
+13)What is the difference between the half and full version of explicit output statement. Explain with example.
+->
+
+14)What is the use of ODS? What are the different types of files that we can create using ODS?
+->
+The output from a SAS program can be converted to more user friendly forms like .html or PDF. This is done by using the ODS statement available in SAS. ODS stands for output delivery system. It is mostly used to format the output data of a SAS program to nice reports which are good to look at and understand. That also helps sharing the output with other platforms and soft wares. It can also combine the results from multiple PROC statements in one single file.
+
+Syntax
+The basic syntax for using the ODS statement in SAS is −
+
+ODS outputtype
+PATH path name
+FILE = Filename and Path
+STYLE = StyleName
+;
+PROC some proc
+;
+ODS outputtype CLOSE;
+
+15)What is the difference between data step and proc step?
+->
+ANS:-DATA step is used to read, create or modify a dataset depending upon your requirement.
+PROC step is primarily used to produce various charts, reports, formats, graphs, analysis and more, using an existing dataset.
+
+16)Explain the data step used when you are trying to create a dataset using an existing SAS dataset.
+->
+ANS:-DATA New-Dataset-Name (OPTIONS);
+    SET Existing-Dataset-Name (OPTIONS);
+    .
+    .
+    .
+RUN;
+The statements above tell SAS to create a new dataset (New-Dataset-Name) that is an exact copy of an existing SAS dataset (Existing-Dataset-Name). This allows you to create new variables or recode existing variables without permanently changing the original data. 
+A data step containing only the SET statement will create an exact copy of the dataset. For example, the program
+
+DATA new_sample;
+    SET sample;
+RUN;
+
+
+17)Explain the data step used when you are trying to create a dataset using an excel like file.
+-> 
+	data excelfilename;
+	infile excelfilelocation , dim = ',';
+	input $ colnames of all columns	
+	run;
+
+18) Explain the data step used when you are trying to create a dataset using a raw data file.
+->
+	data excelfilename;
+	infile excelfilelocation ;
+	input  ID 1-3 Name $4-17  Science 19-21 Math 22-24 Economics 25-26;
+	run;
+
+19)Explain the data step used when you are trying to create a hardcoded dataset.
+->
+float area = 0;
+    area = 3.14*radius*radius;  //  3.14 is a hard-coded value
+      return area;
+
+*HARD CODED DATA;
+data empsdk;
+input Name $ Gender $ Country $;
+datalines;
+Alex M Denmark
+Jessica F Denmark
+John M Denmark
+;
+run;
+
+
+20)What is the difference between one-way and two-way frequency tables?
+->
+examines one categorical variable at a time. The Procedure FREQ
+can preform the tabulation of this simple structure, and produce tests
+for equal proportions across the categories.
+eg:proc freq data=aadi.sales;
+   tables Gender;
+   run;
+
+Two-way frequency refers to a tabulation of the data which
+examines two categorical variable at a time. The Procedure FREQ
+can preform the tabulation of this simple structure, and produce tests
+for equal proportions across the categories.
+eg:proc freq data=aadi.sales;
+   tables Gender*Country;
+   run;
+
+21)How are missing values represented in SAS?
+->
+ANS.SAS stores missing values differently depending on the variable type.
+
+Character variables: Missing values for character variables appear as blanks.
+Numeric variables: Missing values for numeric variables (including date variables) appear as a dot.
+
+
+22)What are the datatypes supported in SAS?
+->Categorical/Dicsrete data 
+	EG:- model of a car , male-female,Income bracket
+Numeric/Quantative
+	Eg:-Age,height,weight, income,GPA
+
+23)What is the difference between the label and format statements?
+->
+ANS:- LABEL	
+data test1;
+   x=1;
+   y=1;
+   z=1;
+   label x="this is x" y  ="this is y" z="This is z";
+run;
+
+24)What is the use of varnum keyword in SAS?
+->VARNUM returns the number of a variable's position in a SAS data set, or 0 if the variable is not in the SAS data set. 
+proc contents data=aadi.sales varnum;
+run;
+
+
+25)What are the types of loops in SAS?
+->SAS DO Loop, SAS DO WHILE loop, and SAS DO UNTIL Loop 
+
+The Do Until executes at least once.
+The Do While may not execute at all. 
+
+The Do Until loop evaluates the condition at the bottom.
+The Do While loop evaluates the condition at the top.
+
+Do While Executes When Condition is True.
+Do  until Executes When Condition is False.
+
+26)List a few numeric functions in SAS.
+->
+ABS(argument)	returns absolute value
+MAX(argument,argument, …)	returns the largest value of the numeric arguments
+MIN(argument,argument, …)	returns the smallest value of the numeric arguments
+MOD(argument-1, argument-2)	returns the remainder
+SIGN(argument)	returns the sign of a value or 0
+SQRT(argument)	returns the square root
+
+27)List a few character functions in SAS.
+->a. SAS COMPBL Function
+SAS String Functions – COMPBL Function
+Purpose:  Occurrences of two or more blanks is replaced with a single blank character. This is particularly useful for situations where names and addresses that have multiple blanks may have been entered.
+Syntax:  COMPBL (an expression that is to be compressed)
+
+b.SAS STRIP Function
+SAS String Functions – STRIP Function
+Purpose: This function removes the leading and trailing spaces i.e spaces that occur before and after any character.
+Syntax:  STRIP( name of the character)
+
+c.SAS String Functions – TRIM Function
+Purpose: This function is used for removing trailing blanks exclusively. It becomes useful when we want to concatenate two strings and both have trailing spaces.
+
+d.SAS String Functions – CAT Function (CAT, CATS, CATT, and CATX)
+Purpose: These functions are used to concatenate two strings (join them). The CAT function joins the two strings as it is, including spaces also.
+
+28)What is the use of Arrays in SAS?
+->A SAS array is a convenient way of temporarily identifying a group of variables for processing within a data step. Once the array has been defined the programmer is now able to perform the same tasks for a series of related variables, the array elements.
+
+data sample;
+array my_arr{5} (36,4,50,69,70);
+run;		
+
+29)What are SAS macros?Explain their usage?
+->
+ANS:-SAS has a powerful programming feature called Macros which allows us to avoid repetitive sections of code and to use them again and again when needed. 
+It also helps create dynamic variables within the code that can take different values for different run instances of the same code. Macros can also be declared for blocks of code which will be reused multiple times in a similar manner to macro variables. 
+
+
+30)What is the syntax for creating,viewing and accessing macro variables?
+->
+ANS:-CREATING:
+The %LET statement is followed by the macro variable name, an equal sign (=), and then the text value to be assigned to the
+macro variable.
+The syntax of the %LET statement is
+				%LET macro-variable-name = text-or-text-value;
+
+ACCESSING:
+After a macro variable is created, you typically use the variable by referencing it with an ampersand preceding its name (&variable-name), which is called a macro variable reference. 
+These references perform symbolic substitutions when they resolve to their value. 
+You can use these references anywhere in a SAS program. To resolve a macro variable reference that occurs within a literal string, enclose the string in double quotation marks.
+Macro variable references that are enclosed in single quotation marks are not resolved.
+
+VIEWING:
+You can also use a %PUT Macro Statement to view available macro variables. 
+%PUT provides several options that enable you to view individual categories of macro variables. 
+The system option SYMBOLGEN displays the resolution of macro variables
+
+
+31)
+->
+
+32)What is the use of SAS SQL?
+->Using PROC SQL, the SAS user has access to a powerful data manipulation and query tool. PROC SQL is part of the BASE SAS® software and allows you to use SQL within the SAS® system.
+The SQL procedure (PROC SQL) is a wonderful tool for summarizing (or aggregating) data. It provides a number of useful summary (or aggregate) functions to help perform calculations, descriptive statistics, and other aggregating operations in a SELECT statement or HAVING clause. These functions are designed to summarize information and not display detail about data
+
+33)What all features of SQL does SAS SQL support?
+->
+AVG, MEAN	Average or mean of values
+COUNT, FREQ, N	Aggregate number of non-missing values
+CSS	Corrected sum of squares
+CV	Coefficient of variation
+MAX	Largest value
+MIN	Smallest value
+NMISS	Number of missing values
+PRT	Probability of a greater absolute value of Student's t
+RANGE	Difference between the largest and smallest values
+STD	Standard deviation
+STDERR	Standard error of the mean
+SUM	Sum of values
+SUMWGT	Sum of the weight variable values, which is 1
+T	Testing the hypothesis that the population mean is zero
+USS	Uncorrected sum of squares
+VAR	Variance
+
+A)
+In sas there are 2 ways of accessing the relational dataase :- a)by using the libname
+					                b)by using pass through facility
+B)
+using macro variables using into clause
+
+C)Merge (join) Tables
+eg. left join , right join ,inner join
+
+D)Transform data
+SQL is used frequently for creating, renaming new variables, and ordering output. a)Create a new variable new_v1 by concatenating v1 and v2 b)Create a new variable new_v2 as the sum of v3 c)Rename v4 and v5 as out4 and out5 
+
+34)How do you handle missing values while reading a file in SAS?
+->SAS does not properly recognize empty values for delimited data unless you use the dsd option. You need to use the dsd option on the infile statement if two consecutive delimiters are used to indicate missing values (e.g., two consecutive commas, two consecutive tabs). Below, we read the exact same file again, except that we use the dsd option.
+data heart_char;
+ set sashelp.heart;
+ 
+ if DeathCause = ' ' then delete;
+run;
+
+data have;
+infile datalines dlm=',' dsd missover;
+input Origin $ Destination $ Carrier $ Delay;
+datalines;
+EWR,DEL,UA,15
+EWR,DEL,UA,60
+NYC,DEL,CA,120
+DEL,NYC,UA,180
+NYC,DEL,CA,-15
+MUM,NYC,B6,60
+MUM,NYC,B6,.
+EWR,DEL,UA,.
+;
+run;
+
+proc sql;
+select 	Origin , 
+		Destination , 
+		Carrier,
+		Delay,
+		case when Delay is null then avg(Delay) 
+			else Delay end	as New_Delay
+from have
+group by Origin , Destination , Carrier
+;
+quit;
+
+
+
+35.How do you create a block in SAS?
+->
+ANS.Program blocks are created with the DATA, PACKAGE, and THREAD statements. 
+These statements, and their concluding END statements, are used outside of any other statement, and the program blocks that they define can contain other statements. 
+All other statements must be used inside one of these blocks.
+
+
+
+36)What is PDV in SAS?
+->The program data vector (PDV) is a logical area of memory where SAS builds a data set, one observation at a time. When a program executes, SAS reads data values from the input buffer or creates them by executing SAS language statements. SAS assigns the values to the appropriate variables in the program data vector. From here, SAS writes the values to a SAS data set as a single observation.
+
+37)How are calculated variables created in SAS datasets?
+->data newtour;
+   set mylib.populartours;
+   TotalCost = AirCost + LandCost;
+   PeakAir = (AirCost * 1.10) + 8;
+   NightCost = LandCost / Nights;
+run;
+
+proc print data=newtour;
+   var Country Nights AirCost LandCost TotalCost PeakAir NightCost;
+   title 'Costs for Tours';
+run;
+
+ANS.data new_sales;
+    set aadi.sales;
+    bonus = 0.1*salary;
+    run;
+
+37)What is the difference between where and subsetting if statement?
+->WHERE statement applies the subset condition before merging the data sets, Whereas, IF statement applies the subset condition after merging the data sets.
+The WHERE statement can be used in procedures to subset data while IF statement cannot be used in procedures.
+WHERE can be used as a data set option while IF cannot be used as a data set option.
+The WHERE statement is more efficient than IF statement. It tells SAS not to read all observations from the data set.
+The WHERE statement can be used to search for all similar character values that sound alike while IF statement cannot be used.
+
+
+
+38)What is the difference between keep and drop statement and options?Explain with example.
+->*creating a new dataset with selected variables;
+*keep -> allow's you to specify the list of variables to be included in the new dataset
+ drop -> will exclude the list of variables in the new dataset;
+data new_sales;
+set rac.sales;
+keep employee_id first_name gender country salary;
+*drop last_name job_title birth_date hire_date;
+run;
+
+40.Explain the syntax and use of title and footnote statements in SAS.
+ANS.You can define TITLE and FOOTNOTE statements anywhere in your SAS program. 
+They are global and remain in effect until you cancel them or until you end your SAS session.
+You can define up to ten TITLE statements and ten FOOTNOTE statements in your SAS session. 
+A TITLE or FOOTNOTE statement without a number is equivalent to a TITLE1 or FOOTNOTE1 statement.
+
+title1 ' Basic summary statistics ';
+
+title2 ' PROC MEANS - glucose, lactate and alanine';
+
+footnote ' SGA Kids ';	
